@@ -25,6 +25,9 @@
       'click .back': 'onBackClick',
       'click .save': 'onSaveClick',
       'change .org-fields-activate': 'onActivateOrgFieldsChange',
+      'change .show-user-ticket-counts': 'onShowUserTicketCountsFieldChange',
+      'change .show-org-ticket-counts': 'onShowOrgTicketCountsFieldChange',
+      
       'change,keyup,input,paste .notes-or-details': 'onNotesOrDetailsChanged',
 
       // Misc
@@ -88,6 +91,8 @@
         var settings = {
           'selectedFields': JSON.stringify(_.toArray(keys)),
           'orgFieldsActivated': this.storage.orgFieldsActivated.toString(),
+          'showUserTicketCounts': this.storage.showUserTicketCounts.toString(),
+          'showOrgTicketCounts': this.storage.showOrgTicketCounts.toString(),
           'orgFields': JSON.stringify(_.toArray(orgKeys))
         };
         this.settings = _.extend(this.settings, settings);
@@ -224,6 +229,8 @@
         fields: this.fieldsForCurrentUser(),
         orgFields: this.fieldsForCurrentOrg(),
         orgFieldsActivated: this.storage.user && this.storage.orgFieldsActivated && this.storage.user.organization,
+        showUserTicketCounts: this.storage.showUserTicketCounts,
+        showOrgTicketCounts: this.storage.showOrgTicketCounts,
         org: this.storage.user && this.storage.user.organization,
         orgTickets: this.makeTicketsLinks(this.storage.orgTicketsCounters)
       });
@@ -273,10 +280,14 @@
         fields: [],
         selectedKeys: [],
         orgFieldsActivated: false,
+        showUserTicketCounts: false,
+        showOrgTicketCounts: false,
         tickets: []
       };
       this.storage = _.clone(defaultStorage); // not sure the clone is needed here
       this.storage.orgFieldsActivated = (this.setting('orgFieldsActivated') == 'true');
+      this.storage.showUserTicketCounts = (this.setting('showUserTicketCounts') == 'true');
+      this.storage.showOrgTicketCounts = (this.setting('showOrgTicketCounts') == 'true');
       var defaultSelection = '["##builtin_tags", "##builtin_details", "##builtin_notes"]';
       this.storage.selectedKeys = JSON.parse(this.setting('selectedFields') || defaultSelection);
       var defaultOrgSelection = '[]';
@@ -340,7 +351,9 @@
       var html = this.renderTemplate('admin', {
         fields: this.storage.fields,
         orgFields: this.storage.organizationFields,
-        orgFieldsActivated: this.storage.orgFieldsActivated
+        orgFieldsActivated: this.storage.orgFieldsActivated,
+        showUserTicketCounts: this.storage.showUserTicketCounts,
+        showOrgTicketCounts: this.storage.showOrgTicketCounts,
       });
       this.$('.admin').html(html).show();
       this.$('.whole').hide();
@@ -390,6 +403,17 @@
       this.storage.orgFieldsActivated = activate;
       this.$('.org-fields-list').toggle(activate);
     },
+    
+    onShowUserTicketCountsFieldChange: function(event) {
+      var show = this.$(event.target).is(':checked');
+      this.storage.showUserTicketCounts = show;
+    },
+    
+    onShowOrgTicketCountsFieldChange: function(event) {
+      var show = this.$(event.target).is(':checked');
+      this.storage.showOrgTicketCounts = show;
+    },
+    
 
     // REQUESTS ================================================================
 

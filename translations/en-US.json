@@ -12,7 +12,9 @@
     "title": "User Data Admin panel",
     "save": "Save and go back",
     "text": "Please select the user fields you would like to permanently display on the App",
-    "include_org_fields": "Display organization information"
+    "include_org_fields": "Display organization information",
+    "show_user_ticket_counts": "Display ticket counts for user",
+    "show_org_ticket_counts": "Display ticket counts for organization"
   },
   "info": {
     "no_tags": "No tags",

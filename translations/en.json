@@ -34,6 +34,14 @@
     "include_org_fields": {
       "title": "Check box to display org fields",
       "value": "Display organization information"
+    },
+    "show_user_ticket_counts": {
+      "title": "Check box to display ticket counts for the user",
+      "value": "Display user ticket counts"
+    },
+    "show_org_ticket_counts": {
+      "title": "Check box to display ticket counts for the organization",
+      "value": "Display organization ticket counts"
     }
   },
   "info": {

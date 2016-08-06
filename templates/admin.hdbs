@@ -3,6 +3,12 @@
 <p>{{t "admin.text"}}</p>
 
 <ul class="fields-list">
+  <li>
+    <label class="checkbox">
+      <input type="checkbox" class="show-user-ticket-counts" {{#if showUserTicketCounts}}checked{{/if}}>
+        {{t "admin.show_user_ticket_counts"}}
+    </label>
+  </li>
   {{#each fields}}
     <li>
       <input type="checkbox" value="{{key}}" id="{{key}}" {{#if selected}}checked{{/if}}/>
@@ -12,13 +18,19 @@
 </ul>
 
 {{#if orgFields.length }}
-  <div class="org-fields">
+  <div class="org-fields">  
     <label class="checkbox">
       <input type="checkbox" class="org-fields-activate" {{#if orgFieldsActivated}}checked{{/if}}>
       {{t "admin.include_org_fields"}}
     </label>
 
     <ul class="org-fields-list" {{#unless orgFieldsActivated}}style="display: none"{{/unless}}>
+      <li>
+        <label class="checkbox">
+          <input type="checkbox" class="show-org-ticket-counts" {{#if showOrgTicketCounts}}checked{{/if}}>
+            {{t "admin.show_org_ticket_counts"}}
+        </label>
+      </li>        
       {{#each orgFields}}
         <li>
           <label class="checkbox">
